@@ -1,0 +1,91 @@
+@import './variables';
+.md-avatar {
+  position: relative;
+  margin: auto;
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  min-height: 32px;
+  line-height: 32px;
+  color: white;
+  background: $primary-color;
+  border-radius: 32px;
+  display: inline-block;
+  overflow: hidden;
+  user-select: none;
+  vertical-align: middle;
+  text-align: center;
+  cursor: default;
+  &.bg-white {
+    color: $primary-color;
+    background: #fff;
+  }
+}
+
+.divider {
+  margin: 0;
+  display: block;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: rgba(0, 0, 0, 0.12);
+}
+
+.md-list {
+  .divider {
+    margin: 4px 0;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.md-icon {
+  user-select: none;
+  &.disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+}
+
+.mdi {
+  font-size: 24px;
+  vertical-align: middle;
+}
+
+.md-snackbar.md-active.error .md-snackbar-container {
+  background: $warn-color
+}
+
+.md-theme-default.md-switch.md-disabled .md-switch-thumb,
+.md-theme-default.md-switch.md-disabled.md-checked .md-switch-thumb {
+  background-color: $primary-color !important;
+  opacity: 0.5
+}
+
+.md-theme-default.md-button.facebook:not([disabled]).md-raised:not(.md-icon-button) {
+  background-color: $facebook-color;
+  color: white
+}
+
+.md-theme-default.md-button.facebook:not([disabled]).md-raised:not(.md-icon-button):hover {
+  background-color: #4c70ba;
+  color: white
+}
+
+.md-dialog {
+  min-width: 580px;
+  .head-title {
+    background: $primary-color;
+    color: white;
+    padding: $base-spacing-unit * 2;
+    font-size: $base-font-size * 1.2;
+  }
+  .md-dialog-content {
+    padding: $base-spacing-unit * 2;
+  }
+}
+
+.md-button {
+  margin: 0
+}

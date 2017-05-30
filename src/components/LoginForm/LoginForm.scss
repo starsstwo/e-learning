@@ -1,0 +1,41 @@
+.login-form {
+  height: 100%;
+}
+
+form {
+  width: 600px;
+  padding: 20px;
+}
+
+.md-card {
+  width: 100%;
+  padding: 20px;
+}
+
+.md-card-header {
+  padding: 30px;
+  .md-title {
+    text-align: center;
+    font-size: 36px;
+  }
+}
+
+.md-input-container {
+  &.password {
+    margin-bottom: 5px;
+    &.md-input-invalid {
+      margin-bottom: 25px;
+    }
+  }
+}
+
+.reset-password {
+  font-size: 12px;
+  margin-left: 36px;
+}
+
+.md-card-actions {
+  button {
+    width: 100%;
+  }
+}
