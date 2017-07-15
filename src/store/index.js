@@ -1,8 +1,8 @@
 /* @flow */
-import user from './user.store'
+import news from './news.store'
 export default {
   modules: {
-    user
+    news
   },
   strict: process.env.NODE_ENV !== 'production'
 }

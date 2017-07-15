@@ -27,7 +27,7 @@ type JoinOption = {
 
 const poolConnect = mysql.createPool({
   host: config.mysql.host,
-  port: '8889',
+  port: config.mysql.port,
   user: config.mysql.user,
   password: config.mysql.password,
   database: config.mysql.database

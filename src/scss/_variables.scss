@@ -6,10 +6,16 @@ $base-spacing-unit: 8px;
 $base-round: 4px;
 
 // Base Color
-$base-text-color: rgba(0, 0, 0, .87);
+$base-text-color: rgb(31, 45, 61);
 $base-text-color-white: rgba(255, 255, 255, .87);
+$base-text-blur-color: rgba(0, 0, 0, 0.4);
 $background-color: #eceff1;
-$primary-color: #2196f3;
-$accent-color: #3F51B5;
-$warn-color: #F44336;
+$primary-color: #20a0ff;
+$accent-color: #e91e63;
+$danger-color: #ff4949;
+$warning-color: #f7ba2a;
+$info-color: #50bfff;
+$disabled-color: rgba($base-text-color, .6);
 $facebook-color: #4267b2;
+$border-color: #ddd;
+$link-color: #337ab7;

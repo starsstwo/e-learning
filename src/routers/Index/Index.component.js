@@ -14,24 +14,22 @@ export default {
     return {}
   },
   created() {
-    // ユーザーデータを取得
-    this.getUser()
+    this.getRecentNews()
   },
   methods: {
-    ...mapActions('user', [
-      'setUser'
+    ...mapActions('news', [
+      'setNews'
     ]),
     /**
-     * ユーザーデータを取得
+     * 初期化
      */
-    async getUser() {
-      const userData = await api.get('/user/userData')
-      if (userData === null) {
-        location.href = '/login'
-        return
-      }
-      // ユーザーデータをストアーに保存する
-      this.setUser(userData)
+    async getRecentNews() {
+      const recentNews = await api.get('/post/listNew', {
+        params: {
+          postType: 'news'
+        }
+      })
+      this.setNews(recentNews)
     }
   }
 }

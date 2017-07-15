@@ -1,0 +1,33 @@
+@import '../../../scss/variables';
+.post-card {
+  margin-bottom: $base-spacing-unit * 2.5;
+  &-thumbnail {
+    background-position: center;
+    background-size: cover;
+    cursor: pointer;
+  }
+  .img-small {
+    width: 80px;
+    height: 50px;
+  }
+  .img-large {
+    width: 150px;
+    height: 100px;
+  }
+  &-head {
+    font-size: 14px;
+    height: 32px;
+    line-height: 20px;
+    &-title {
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
+  &-description {
+    margin-top: $base-spacing-unit * 1.6;
+    font-size: 16px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+}

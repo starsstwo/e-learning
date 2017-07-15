@@ -1,6 +1,5 @@
 /* @flow */
 import Vue from 'vue'
-import store from '../store'
 
 const API_PREFIX = '/api'
 
@@ -18,7 +17,6 @@ async function get(endpoint: string, options: any) {
     }
     return null
   } catch (err) {
-    sendAPIErrorToSlack(endpoint, options, err)
     return null
   }
 }
@@ -36,7 +34,6 @@ async function post(endpoint: string, options: any) {
     const data = response.data || null
     return data
   } catch (err) {
-    sendAPIErrorToSlack(endpoint, options, err)
     return null
   }
 }
@@ -54,7 +51,6 @@ async function put(endpoint: string, options: any) {
     const data = response.data || null
     return data
   } catch (err) {
-    sendAPIErrorToSlack(endpoint, options, err)
     return null
   }
 }
@@ -72,33 +68,8 @@ async function sendDelete(endpoint: string, options: any) {
     const data = response.data || null
     return data
   } catch (err) {
-    sendAPIErrorToSlack(endpoint, options, err)
     return null
   }
-}
-
-/**
- * SlackにAPIエラーを通知する
- * @param {*} message メッセージ
- */
-async function sendAPIErrorToSlack(endpoint: string, options: any, error: any) {
-  if (typeof error === Error) {
-    error = error.stack
-  }
-  const user = store.modules.user.state.user
-  const group = store.modules.user.state.selectedGroup
-  const message = `
-クライアント側でAPIエラーが発生しました。
-グループ: ${group.groupName}(${String(group.groupId)})
-ユーザー名: ${user.name}(${user.email})
-Endpoint: ${endpoint}
-Options: ${JSON.stringify(options)}
-Error: ${JSON.stringify(error)}`
-
-  const slackEndpoint = '/common/sendSlack'
-  await Vue.axios.post(API_PREFIX + slackEndpoint, {
-    message: message
-  })
 }
 
 export default {

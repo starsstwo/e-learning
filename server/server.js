@@ -5,9 +5,9 @@
 
 import https from 'https'
 import app from './app'
-import fs from 'fs'
-import path from 'path'
 import config from './config'
+const fs = require('fs')
+const path = require('path')
 
 const options = {
   key: fs.readFileSync(path.join(__dirname, '/certificates/server.key')),

@@ -1,29 +1,6 @@
-.navbar.md-toolbar {
+@import '../../scss/variables';
+.navbar {
   padding: 0 20px;
   color: white;
-  .md-select:after {
-    right: 8px;
-    margin-top: 0;
-    color: white;
-  }
-  .md-title a {
-    color: white;
-    &:hover {
-      text-decoration: none
-    }
-  }
-  .md-title:first-child {
-      margin-left: 0
-  }
-}
-
-.md-select {
-  padding: 2px 8px;
-  width: auto;
-  height: auto;
-  min-width: inherit;
-  &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-  }
+  background-color: $primary-color;
 }

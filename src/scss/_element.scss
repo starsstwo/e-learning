@@ -1,0 +1,101 @@
+@import './variables';
+.el-button {
+  padding: 6px 10px;
+  .mdi {
+    vertical-align: -15%
+  }
+}
+
+.el-button--facebook {
+  background-color: $facebook-color;
+  color: white;
+
+  &:hover {
+    background-color: #4c70ba;
+    color: white;
+  }
+}
+
+.el-button--text {
+  padding: 0;
+}
+
+.el-button--text:hover {
+  opacity: .8;
+}
+
+.el-button--round {
+  padding: $base-spacing-unit;
+  border-radius: 50%;
+}
+
+.el-dropdown-link {
+  cursor: pointer;
+  user-select: none;
+}
+
+.el-dropdown-link--navbar {
+  padding: $base-spacing-unit * 1.5 $base-spacing-unit;
+  color: white;
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+}
+
+.el-card {
+  border-radius: 0;
+}
+
+.el-card-header {
+  margin-bottom: $base-spacing-unit * 3;
+}
+
+.el-card-header__title {
+  font-size: 24px;
+}
+
+.el-card-header__subhead {
+  margin: 8px 0 0 0;
+  line-height: 20px;
+  letter-spacing: .01em;
+  font-weight: 400;
+  opacity: .54;
+  font-size: 14px;
+}
+
+.el-table::after, .el-table::before {
+  background-color: inherit;
+  height: 0;
+}
+
+.el-table {
+  th {
+    height: 52px;
+  }
+  td {
+    padding: $base-spacing-unit 0;
+    vertical-align: top;
+  }
+  .cell {
+    word-break: break-word;
+  }
+}
+
+
+.el-table td.numeric, .el-table th.numeric {
+  text-align: right;
+}
+
+.el-notification {
+  width: auto;
+  padding-right: 50px;
+}
+
+.el-dialog .el-dialog__title {
+  font-size: 18px;
+}
+
+.el-menu-item {
+  color: white;
+}

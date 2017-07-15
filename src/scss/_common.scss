@@ -1,5 +1,25 @@
 @import './variables';
-.md-avatar {
+.text-primary {
+  color: $primary-color !important;
+}
+
+.text-danger {
+  color: $danger-color !important;
+}
+
+.text-warning {
+  color: $warning-color !important;
+}
+
+.text-info {
+  color: $info-color !important;
+}
+
+.small {
+  font-size: $base-font-size * 0.9
+}
+
+.avatar {
   position: relative;
   margin: auto;
   width: 32px;
@@ -20,6 +40,9 @@
     color: $primary-color;
     background: #fff;
   }
+  img {
+    width: 100%;
+  }
 }
 
 .divider {
@@ -30,17 +53,20 @@
   border-top-color: rgba(0, 0, 0, 0.12);
 }
 
-.md-list {
-  .divider {
-    margin: 4px 0;
-  }
-}
-
 .pointer {
   cursor: pointer;
 }
 
-.md-icon {
+.mdi {
+  display: inline-flex;
+  margin: auto;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  fill: currentColor;
+  text-rendering: optimizeLegibility;
+  vertical-align: middle;
   user-select: none;
   &.disabled {
     opacity: 0.3;
@@ -48,44 +74,32 @@
   }
 }
 
-.mdi {
-  font-size: 24px;
-  vertical-align: middle;
+.text-message {
+  margin: 0 16px;
+  padding: 16px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #eceff1;
 }
 
-.md-snackbar.md-active.error .md-snackbar-container {
-  background: $warn-color
+.nodata-message {
+  padding: $base-spacing-unit * 2;
+  font-size: $base-font-size;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  background-color: $background-color;
 }
 
-.md-theme-default.md-switch.md-disabled .md-switch-thumb,
-.md-theme-default.md-switch.md-disabled.md-checked .md-switch-thumb {
-  background-color: $primary-color !important;
-  opacity: 0.5
+a {
+    text-decoration: none;
+    color: $link-color;
+    &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
 }
 
-.md-theme-default.md-button.facebook:not([disabled]).md-raised:not(.md-icon-button) {
-  background-color: $facebook-color;
-  color: white
-}
-
-.md-theme-default.md-button.facebook:not([disabled]).md-raised:not(.md-icon-button):hover {
-  background-color: #4c70ba;
-  color: white
-}
-
-.md-dialog {
-  min-width: 580px;
-  .head-title {
-    background: $primary-color;
-    color: white;
-    padding: $base-spacing-unit * 2;
-    font-size: $base-font-size * 1.2;
-  }
-  .md-dialog-content {
-    padding: $base-spacing-unit * 2;
-  }
-}
-
-.md-button {
-  margin: 0
+.post-body {
+  white-space: pre-wrap;
 }

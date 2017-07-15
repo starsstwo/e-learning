@@ -3,11 +3,52 @@ var config = require('./config')
 var webpack = require('webpack')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 var nodeExternals = require('webpack-node-externals')
-var env = process.env.NODE_ENV === 'development'
-  ? config.dev.env
-  : config.build.env
+var env =
+  process.env.NODE_ENV === 'development' ? config.dev.env : config.build.env
 
-function resolve (dir) {
+// コピーするファイルの設定
+// コピーするファイルの設定
+var copyConfig = [
+  {
+    from: path.resolve(__dirname, '../server/views'),
+    to: path.resolve(__dirname, '../dist/views')
+  }
+]
+
+// 本番環境の場合は、deployファイルをコピーする
+if (env.NODE_ENV === '"production"') {
+  // copyConfig = copyConfig.concat([
+  //   {
+  //     from: path.resolve(__dirname, '../deploy/appspec.yml'),
+  //     to: path.resolve(__dirname, '../dist')
+  //   },
+  //   {
+  //     from: path.resolve(__dirname, '../deploy/after-install.sh'),
+  //     to: path.resolve(__dirname, '../dist')
+  //   },
+  //   {
+  //     from: path.resolve(__dirname, '../deploy/deploy-slack-notification.js'),
+  //     to: path.resolve(__dirname, '../dist')
+  //   }
+  // ])
+} else {
+  // 開発環境の場合は、SSL証明書をコピーする
+  // copyConfig = copyConfig.concat([
+  //   {
+  //     from: path.resolve(__dirname, '../server/certificates'),
+  //     to: path.resolve(__dirname, '../dist/certificates')
+  //   }
+  // ])
+}
+
+copyConfig = copyConfig.concat([
+  {
+    from: path.resolve(__dirname, '../server/certificates'),
+    to: path.resolve(__dirname, '../dist/certificates')
+  }
+])
+
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -17,7 +58,7 @@ module.exports = {
   },
   output: {
     path: config.build.dist,
-    filename: 'server.js',
+    filename: 'app.js',
     publicPath: config.build.assetsPublicPath,
     libraryTarget: 'commonjs2'
   },
@@ -26,7 +67,11 @@ module.exports = {
     extensions: ['.js', '.json']
   },
   target: 'node',
-  externals: [nodeExternals()],
+  externals: [
+    nodeExternals({
+      modulesFromFile: true
+    })
+  ],
   module: {
     rules: [
       {
@@ -52,18 +97,11 @@ module.exports = {
     }),
     // Do not create separate chunks of the server bundle
     // https://webpack.github.io/docs/list-of-plugins.html#limitchunkcountplugin
-    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1
+    }),
     // copy custom folder
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(__dirname, '../server/certificates'),
-        to: path.resolve(__dirname, '../dist/certificates')
-      },
-      {
-        from: path.resolve(__dirname, '../server/views'),
-        to: path.resolve(__dirname, '../dist/views')
-      }
-    ])
+    new CopyWebpackPlugin(copyConfig)
   ],
   node: {
     console: true,
@@ -71,7 +109,7 @@ module.exports = {
     process: true,
     Buffer: false,
     __filename: false,
-    __dirname: false,
+    __dirname: false
   },
 
   devtool: 'source-map'

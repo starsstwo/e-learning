@@ -22,18 +22,23 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 // remove dist
 rm(config.build.dist, err => {
   // bundle server
-  bundleServer().then(() => {
-    // copy index.dev.html
-    return copyFile(path.join(__dirname, '../index.dev.html'), config.build.indexHtml)
-  }).then(() => {
-    // bundle client
-    bundleClient();
-  })
+  bundleServer()
+    .then(() => {
+      // copy index.dev.html
+      return copyFile(
+        path.join(__dirname, '../index.dev.html'),
+        config.build.indexHtml
+      )
+    })
+    .then(() => {
+      // bundle client
+      bundleClient()
+    })
 })
 
 // bundle client
 function bundleClient() {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     var compiler = webpack([webpackConfig])
 
     var devMiddleware = webpackDevMiddleware(compiler, {
@@ -45,8 +50,8 @@ function bundleClient() {
       log: () => {}
     })
     // force page reload when html-webpack-plugin template changes
-    compiler.plugin('compilation', function (compilation) {
-      compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
+    compiler.plugin('compilation', function(compilation) {
+      compilation.plugin('html-webpack-plugin-after-emit', function(data, cb) {
         hotMiddleware.publish({ action: 'reload' })
         cb()
       })
@@ -71,55 +76,63 @@ function bundleClient() {
 // buncle server
 function bundleServer() {
   console.log('> Starting dev server...')
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     var compilerServer = webpack(webpackServerConfig)
 
     compilerServer.run(function(err, stats) {
-      const serverPath = path.join(webpackServerConfig.output.path, webpackServerConfig.output.filename);
+      const serverPath = path.join(
+        webpackServerConfig.output.path,
+        webpackServerConfig.output.filename
+      )
 
       nodemon({
         script: serverPath,
         watch: [serverPath],
-        env: { 'NODE_ENV': 'development' }
-      })
-      .on('start', function() {
+        env: { NODE_ENV: 'development' }
+      }).on('start', function() {
         resolve('Finished')
       })
     })
 
-    compilerServer.watch({ // watch options:
+    compilerServer.watch(
+      {
+        // watch options:
         aggregateTimeout: 300, // wait so long for more changes
         poll: true // use polling instead of native watchers
         // pass a number to set the polling interval
-    }, function(err, stats) {
-      console.log(stats.toString({
-        chunks: false, // Makes the build much quieter
-        colors: true
-      }));
-    });
+      },
+      function(err, stats) {
+        console.log(
+          stats.toString({
+            chunks: false, // Makes the build much quieter
+            colors: true
+          })
+        )
+      }
+    )
   })
 }
 
 // copyFile
 function copyFile(source, target) {
   return new Promise((resolve, reject) => {
-    let cbCalled = false;
+    let cbCalled = false
     function done(err) {
       if (!cbCalled) {
-        cbCalled = true;
+        cbCalled = true
         if (err) {
-          reject(err);
+          reject(err)
         } else {
-          resolve();
+          resolve()
         }
       }
     }
 
-    const rd = fs.createReadStream(source);
-    rd.on('error', err => done(err));
-    const wr = fs.createWriteStream(target);
-    wr.on('error', err => done(err));
-    wr.on('close', err => done(err));
-    rd.pipe(wr);
+    const rd = fs.createReadStream(source)
+    rd.on('error', err => done(err))
+    const wr = fs.createWriteStream(target)
+    wr.on('error', err => done(err))
+    wr.on('close', err => done(err))
+    rd.pipe(wr)
   })
 }

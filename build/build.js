@@ -18,13 +18,17 @@ var spinner = ora('building for production...')
 spinner.start()
 
 // start build
-clean().then(() => {
-  return writePackageJson()
-}).then(() => {
-  return bundle()
-}).catch((err) => {
-  console.log('Build ERROR:', err)
-})
+clean()
+  .then(() => {
+    return writePackageJson()
+  })
+  .then(() => {
+    return bundle()
+  })
+  .catch(err => {
+    console.log('ERROR:', err)
+    process.exit(1)
+  })
 
 // clean
 function clean() {
@@ -41,28 +45,37 @@ function clean() {
 // writePackageJson
 function writePackageJson() {
   return new Promise((resolve, reject) => {
-    mkdirp(config.build.dist, (err) => {
+    mkdirp(config.build.dist, err => {
       if (err) {
         return reject(err)
       }
-      fs.writeFile(path.join(config.build.dist, 'package.json'), JSON.stringify({
-        "private": true,
-        "name": package.name,
-        "version": package.version,
-        "description": package.description,
-        "author": package.author,
-        "scripts": {
-          "start": "node server.js"
-        },
-        "dependencies": package.dependencies,
-        "engines": package.engines
-      }, null, 2), 'utf8', err => {
-        if (err) {
-          return reject(err)
-        }
+      fs.writeFile(
+        path.join(config.build.dist, 'package.json'),
+        JSON.stringify(
+          {
+            private: true,
+            name: package.name,
+            version: package.version,
+            description: package.description,
+            author: package.author,
+            scripts: {
+              start: 'node server.js'
+            },
+            dependencies: package.dependencies,
+            engines: package.engines
+          },
+          null,
+          2
+        ),
+        'utf8',
+        err => {
+          if (err) {
+            return reject(err)
+          }
 
-        resolve('OK')
-      });
+          resolve('OK')
+        }
+      )
     })
   })
 }
@@ -70,25 +83,33 @@ function writePackageJson() {
 // bundle
 function bundle() {
   return new Promise((resolve, reject) => {
-      webpack([webpackConfig, webpackServerConfig], function (err, stats) {
+    webpack([webpackConfig, webpackServerConfig], function(err, stats) {
       spinner.stop()
       if (err) {
         return reject(err)
       }
-      process.stdout.write(stats.toString({
-        colors: true,
-        modules: false,
-        children: false,
-        chunks: false,
-        chunkModules: false
-      }) + '\n\n')
+      process.stdout.write(
+        stats.toString({
+          colors: true,
+          modules: false,
+          children: false,
+          chunks: false,
+          chunkModules: false
+        }) + '\n\n'
+      )
+
+      let error = false
+      stats.stats.forEach(stat => {
+        if (stat.compilation.errors.length > 0) {
+          error = true
+        }
+      })
+
+      if (error === true) {
+        return reject('Bundle Error')
+      }
 
       console.log(chalk.cyan('  Build complete.\n'))
-      console.log(chalk.yellow(
-        '  Tip: built files are meant to be served over an HTTP server.\n' +
-        '  Opening index.html over file:// won\'t work.\n'
-      ))
-
       resolve('OK')
     })
   })
