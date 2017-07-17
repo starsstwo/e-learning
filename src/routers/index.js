@@ -2,11 +2,11 @@
 import Index from './Index/Index'
 import Home from './Home/Home'
 import About from './About/About'
-import Post from './Post/Post'
+import News from './News/News'
 import PostDetail from './PostDetail/PostDetail'
 import LienHe from './LienHe/LienHe'
-import Tuyendung from './Tuyendung/Tuyendung'
-import Khoahoc from './Khoahoc/Khoahoc'
+import Recruit from './Recruit/Recruit'
+import Course from './Course/Course'
 const routes = [
   {
     path: '/',
@@ -22,7 +22,7 @@ const routes = [
       },
       {
         path: '/tin-tuc',
-        component: Post
+        component: News
       }, {
         path: '/tin-tuc/:permalink',
         component: PostDetail
@@ -31,10 +31,10 @@ const routes = [
         component: LienHe
       }, {
         path: '/tuyen-dung',
-        component: Tuyendung
+        component: Recruit
       }, {
         path: '/khoa-hoc',
-        component: Khoahoc
+        component: Course
       }
     ]
   }

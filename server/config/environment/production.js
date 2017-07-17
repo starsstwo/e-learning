@@ -11,16 +11,10 @@ export default {
   // Mysql関連
   mysql: {
     host: 'localhost',
-    socket: 'localhost:/Applications/MAMP/tmp/mysql/mysql.sock',
+    port: '8889',
     user: 'root',
     password: 'root',
     database: 'elearning'
-  },
-  // セッション期限(20h)
-  sessionDuration: 20 * 60 * 60 * 1000,
-  // 暗号化キー ランダムの文字列設定
-  crypto: {
-    key: 'mAuuEyep4U'
   }
 }
 

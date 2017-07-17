@@ -22,8 +22,14 @@ export default {
     postName() {
       let postName = ''
       switch (this.postType) {
-        case 'tin-tuc':
+        case 'news':
           postName = 'TIN TỨC'
+          break
+        case 'course':
+          postName = 'KHOÁ HỌC'
+          break
+        case 'recruits':
+          postName = 'TUYỂN DỤNG'
           break
       }
       return postName
@@ -41,7 +47,7 @@ export default {
       const postListData = await api.get('/post/list', {
         params: {
           currentPage: this.currentPage,
-          postType: 'news'
+          postType: this.postType
         }
       })
       if (!postListData) return

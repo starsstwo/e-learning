@@ -6,15 +6,5 @@ export default {
   components: {
     Post,
     RightContent
-  },
-  data () {
-    return {
-    }
-  },
-  computed: {
-    postType() {
-      const postType = this.$route.path.substring(1)
-      return postType
-    }
   }
 }
